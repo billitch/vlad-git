@@ -78,7 +78,7 @@ class Vlad::Git
       cmd = [ "if cd #{destination}",
               "#{git_cmd} rev-parse #{revision}",
               "#{git_cmd} remote -v | grep -q #{repository}",
-              "cd -; then exit 0; else exit 1; fi &>/dev/null" ].join(" && ")
+              "cd -; then exit 0; else exit 1; fi >/dev/null 2>&1" ].join(" && ")
       run cmd
       return true
     rescue Rake::CommandFailedError
