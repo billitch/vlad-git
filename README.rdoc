@@ -51,7 +51,7 @@ The specified subdir will be copied on :export.
 The whole repository is still checked out in scm/repo on :update.
 A possible improvement would be to use "sparse checkouts" introduced
 with git 1.7, see
-http://stackoverflow.com/questions/2336580/sparse-checkout-in-git-1-7-0 .
+http://vmiklos.hu/blog/sparse-checkout-example-in-git-1-7
 
 == Contributors
 
