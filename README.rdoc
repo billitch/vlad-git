@@ -40,10 +40,23 @@ rev-spec, set the :revision in config/deploy.rb:
  set :revision, "v2.0"             # Deploy a tag
  set :revision, "a3539b3f3e9edba1" # Deploy a commit
 
+== Subdirectory
+
+By default the whole repository is exported. You can specify a subdirectory
+by setting :git_subdir in config/deploy.rb:
+
+ set :git_subdir, "my/subdir"
+
+The whole repository is still checked out in scm/repo on :update.
+A possible improvement would be to use "sparse checkouts" introduced
+with git 1.7, see
+http://stackoverflow.com/questions/2336580/sparse-checkout-in-git-1-7-0 .
+
 == Contributors
 
 * John Barnette http://github.com/jbarnette
 * Aaron Suggs http://github.com/ktheory
+* Thomas de Grivel http://github.com/billitch
 
 == License
 
