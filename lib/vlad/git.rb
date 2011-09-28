@@ -5,6 +5,7 @@ class Vlad::Git
 
   set :source,  Vlad::Git.new
   set :git_cmd, "git"
+  set :git_subdir, ""
 
   # Returns the command that will check out +revision+ from the
   # repository into directory +destination+.  +revision+ can be any
@@ -43,11 +44,16 @@ class Vlad::Git
   def export(revision, destination)
     revision = 'HEAD' if revision =~ /head/i
     revision = "deployed-#{revision}"
+    subdir = git_subdir or ""
+    subdir = "/#{git_subdir}" unless subdir == "" or subdir.starts_with('/')
 
-    [ "mkdir -p #{destination}",
+    [ "vlad_git_export_tmp=$(mktemp -d #{destination}.tmp_XX)",
       "cd repo",
-      "#{git_cmd} archive --format=tar #{revision} | (cd #{destination} && tar xf -)",
-      "#{git_cmd} submodule foreach '#{git_cmd} archive --format=tar $sha1 | (cd #{destination}/$path && tar xf -)'",
+      "#{git_cmd} archive --format=tar #{revision} | (cd $vlad_git_export_tmp && tar xf -)",
+      "#{git_cmd} submodule foreach '#{git_cmd} archive --format=tar $sha1 | (cd ${vlad_git_export_tmp}/$path && tar xf -)'",
+      "rm -rf #{destination}",
+      "mv ${vlad_git_export_tmp}#{subdir} #{destination}"
+      "rm -rf $vlad_git_export_tmp",
       "cd -",
       "cd .."
     ].join(" && ")
