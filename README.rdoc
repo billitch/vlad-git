@@ -47,6 +47,7 @@ by setting :git_subdir in config/deploy.rb:
 
  set :git_subdir, "my/subdir"
 
+The specified subdir will be copied on :export.
 The whole repository is still checked out in scm/repo on :update.
 A possible improvement would be to use "sparse checkouts" introduced
 with git 1.7, see
