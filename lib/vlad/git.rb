@@ -45,7 +45,7 @@ class Vlad::Git
     revision = 'HEAD' if revision =~ /head/i
     revision = "deployed-#{revision}"
     subdir = git_subdir or ""
-    subdir = "/#{git_subdir}" unless subdir == "" or subdir.starts_with('/')
+    subdir = "/#{git_subdir}" unless subdir == "" or subdir.start_with('/')
 
     [ "vlad_git_export_tmp=$(mktemp -d #{destination}.tmp_XX)",
       "cd repo",
