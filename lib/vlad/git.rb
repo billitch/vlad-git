@@ -50,7 +50,7 @@ class Vlad::Git
     [ "vlad_git_export_tmp=$(mktemp -d #{destination}.tmp_XX)",
       "cd repo",
       "#{git_cmd} archive --format=tar #{revision} | (cd $vlad_git_export_tmp && tar xf -)",
-      "#{git_cmd} submodule foreach '#{git_cmd} archive --format=tar $sha1 | (cd ${vlad_git_export_tmp}/$path && tar xf -)'",
+      "#{git_cmd} submodule foreach '#{git_cmd} archive --format=tar $sha1 | (cd '${vlad_git_export_tmp}'/$path && tar xf -)'",
       "rm -rf #{destination}",
       "mv ${vlad_git_export_tmp}#{subdir} #{destination}",
       "rm -rf $vlad_git_export_tmp",
